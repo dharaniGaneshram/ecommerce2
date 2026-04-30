@@ -1,0 +1,143 @@
+.navbar {
+  padding: 15px 30px;
+  background: #111827; /* light lavender */
+}
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+.navbar button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background: #f59e0b;
+  color:#111827;
+  border-radius: 4px;
+}
+
+.cart {
+  font-weight: 500;
+}
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown */
+.shop-menu {
+  display: none;
+  position: absolute;
+  background: white;
+  margin-top: 10px;
+  list-style: none;
+  padding: 10px 0;
+}
+
+.shop-menu li {
+  padding: 8px 20px;
+  white-space: nowrap;
+}
+
+.shop-menu.show {
+  display: block;
+}
+/* RESET */
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* NAVBAR */
+
+
+/* DROPDOWN */
+.shop-menu {
+  display: none;
+  position: absolute;
+  top: 28px;
+  left: 0;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.shop-menu li {
+  padding: 8px 16px;
+}
+
+.shop-menu.show {
+  display: block;
+}
+/* Navbar Buttons Styling */
+.nav-links li button {
+  background-color: transparent;  /* No default button color */
+  border: none;                   /* Remove border */
+  color: white;                   /* Text color (change to match your navbar) */
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: inherit;
+}
+
+/* Hover effect */
+.nav-links li button:hover {
+  background-color: #fff;   /* White background on hover */
+  color: #f8fafc;           /* Dark purple text (adjust to match theme) */
+  border-radius: 4px;
+}
+
+/* Make buttons inline and remove bullet points */
+.nav-links {
+  list-style: none;  /* Remove bullets */
+  display: flex;     /* Horizontal layout */
+  gap: 10px;         /* Space between buttons */
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Adjust navbar background if needed */
+
+
+/* Logo Styling */
+.logo {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    padding: 20px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
