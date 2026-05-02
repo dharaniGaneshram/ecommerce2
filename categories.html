@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Categories</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* CATEGORY BUTTONS */
+    .category-buttons {
+      text-align: center;
+      margin: 30px 0;
+    }
+
+    .category-buttons button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      background-color: #16a34a;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .category-buttons button:hover {
+      background-color: #16a34a;
+    }
+
+    /* ITEMS SECTION */
+    .items {
+      display: none;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .item-box {
+      background: #fff;
+      padding: 15px;
+      margin: 10px;
+      display: inline-block;
+      width: 220px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+      vertical-align: top;
+    }
+
+    .item-box img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .item-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .item-price {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="window.location.href='category.html'">Categories</button>
+    <button onclick="window.location.href='about.html'">About</button>
+    <button onclick="window.location.href='contact.html'">Contact</button>
+    <button onclick="window.location.href='cart.html'">Cart 🛒</button>
+  </div>
+
+  <!-- CATEGORY BUTTONS -->
+  <div class="category-buttons">
+    <button onclick="showCategory('snacks')">Snacks</button>
+    <button onclick="showCategory('juice')">Juice</button>
+    <button onclick="showCategory('personal')">Personal Care</button>
+  </div>
+
+  <!-- SNACKS ITEMS -->
+  <div id="snacks" class="items">
+    <div class="item-box">
+      <img src="buscuit.webp" alt="Biscuits">
+      <div class="item-name">Biscuits</div>
+      <div class="item-price">₹20</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="chips.png" alt="Chips">
+      <div class="item-name">Chips</div>
+      <div class="item-price">₹30</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="mixture.jpg" alt="Mixture">
+      <div class="item-name">Mixture</div>
+      <div class="item-price">₹40</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- JUICE ITEMS -->
+  <div id="juice" class="items">
+    <div class="item-box">
+      <img src="juice.webp" alt="Orange Juice">
+      <div class="item-name">Orange Juice</div>
+      <div class="item-price">₹50</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="apple-juice.webp" alt="Apple Juice">
+      <div class="item-name">Apple Juice</div>
+      <div class="item-price">₹55</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="mango-juice.jpg" alt="Mango Juice">
+      <div class="item-name">Mango Juice</div>
+      <div class="item-price">₹60</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- PERSONAL CARE ITEMS -->
+  <div id="personal" class="items">
+    <div class="item-box">
+      <img src="soap.jpg" alt="Soap">
+      <div class="item-name">Soap</div>
+      <div class="item-price">₹25</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="shampoo.webp" alt="Shampoo">
+      <div class="item-name">Shampoo</div>
+      <div class="item-price">₹120</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="item-box">
+      <img src="toothpaste.jpg" alt="Toothpaste">
+      <div class="item-name">Toothpaste</div>
+      <div class="item-price">₹60</div>
+      <button class="cart-btn">Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function showCategory(categoryId) {
+      const allItems = document.querySelectorAll('.items');
+
+      allItems.forEach(item => item.style.display = 'none');
+
+      document.getElementById(categoryId).style.display = 'block';
+    }
+
+    /* ADD TO CART */
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const buttons = document.querySelectorAll(".cart-btn");
+
+      buttons.forEach(button => {
+
+        button.addEventListener("click", function () {
+
+          const box = this.closest(".item-box");
+
+          const name =
+            box.querySelector(".item-name").textContent;
+
+          const priceText =
+            box.querySelector(".item-price").textContent;
+
+          const price = Number(
+            priceText.replace("₹", "")
+          );
+
+          let cart =
+            JSON.parse(localStorage.getItem("cart")) || [];
+
+          cart.push({
+            name: name,
+            price: price
+          });
+
+          localStorage.setItem(
+            "cart",
+            JSON.stringify(cart)
+          );
+
+          alert(name + " added to cart");
+
+        });
+
+      });
+
+    });
+  </script>
+
+</body>
+
+</html>

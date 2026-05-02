@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .cart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .total {
+      margin-top: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      font-size: 20px;
+      padding: 30px;
+    }
+
+    .remove-btn {
+      background: red;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="navbar">
+    <button onclick="window.location.href='index.html'">Home</button>
+    <button onclick="window.location.href='categories.html'">Categories</button>
+    <button onclick="window.location.href='about.html'">About</button>
+    <button onclick="window.location.href='contact.html'">Contact</button>
+    <button onclick="window.location.href='cart.html'">Cart 🛒</button>
+  </div>
+
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+
+    <div id="cart-list"></div>
+
+    <div class="total" id="total"></div>
+  </div>
+
+
+  <script>
+    function loadCart() {
+
+      let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+      const cartList =
+        document.getElementById("cart-list");
+
+      const totalBox =
+        document.getElementById("total");
+
+      cartList.innerHTML = "";
+
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartList.innerHTML =
+          "<div class='empty'>Cart is Empty</div>";
+        totalBox.innerHTML = "";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+
+        total += item.price * (item.quantity || 1);
+
+        cartList.innerHTML += `
+          <div class="cart-item">
+                 <span>
+                       ${item.name} - ₹${item.price} × ${item.quantity || 1}
+                 </span>
+
+                <div>
+      <button onclick="decreaseItem(${index})">-</button>
+      <button onclick="increaseItem(${index})">+</button>
+      <button onclick="removeItem(${index})">Remove</button>
+    </div>
+          </div>
+    `;
+      });
+
+      totalBox.innerHTML = "Total: ₹" + total;
+    }
+
+    function removeItem(index) {
+
+      let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+      cart.splice(index, 1);
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+      loadCart();
+    }
+    function decreaseItem(index) {
+      let cart =
+        JSON.parse(localStorage.getItem("cart")) || [];
+
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+      } else {
+        cart.splice(index, 1);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+    function addToCart(name, price) {
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      let existing = cart.find(item => item.name === name);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name, price, quantity: 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+    function increaseItem(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      cart[index].quantity += 1;
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      loadCart();
+    }
+
+    loadCart();
+  </script>
+
+</body>
+
+</html>
